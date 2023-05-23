@@ -1,10 +1,15 @@
+import { IObservateur } from "./observateur";
+
 export class StationMétéo {
   private _temperature: number;
   private _humidité: number;
+  // On ajoute un array qui utilise l'interface IObservateur
+  private _observateurs: IObservateur[];
 
-  constructor(temperature = 0, humidité = 15) {
+  public constructor(temperature = 0, humidité = 15) {
     this._temperature = temperature;
     this._humidité = humidité;
+    this._observateurs = [];
   }
 
   public get temperature(): number {
@@ -13,6 +18,8 @@ export class StationMétéo {
 
   public set temperature(temperature: number) {
     this._temperature = temperature;
+    // A chaque fois que la valeur est mise à jour, on notifie notre observateur du changement
+    this.notifierObservateurs();
   }
 
   public get humidité(): number {
@@ -24,6 +31,19 @@ export class StationMétéo {
       throw new Error("L'humidité est exprimée en pourcentage !");
     }
     this._humidité = humidité;
+    // A chaque fois que la valeur est mise à jour, on notifie notre observateur du changement
+    this.notifierObservateurs();
+  }
+
+  public enregistrerObservateur(observateur: IObservateur): void {
+    // Dispo dans la fonction main, on enregistre quelle classe va être observée
+    this._observateurs.push(observateur);
+  }
+
+  private notifierObservateurs(): void {
+    for (const observateur of this._observateurs) {
+      observateur.mettreAJour(this._temperature, this._humidité);
+    }
   }
 
   public toString(): string {

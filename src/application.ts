@@ -9,6 +9,10 @@ function main(): void {
   const aff2 = new AfficheurGraphique();
   const stationMeteo = new StationMétéo(10);
 
+  // On enregistre les observateurs dans l'array pour connaître quels observateurs vont être utilisés
+  stationMeteo.enregistrerObservateur(aff);
+  stationMeteo.enregistrerObservateur(aff2);
+
   console.log("Appuyez sur entrée pour le prochain affichage");
   rs.question();
 
