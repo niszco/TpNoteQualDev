@@ -46,6 +46,13 @@ export class StationMétéo {
     }
   }
 
+  public supprimerObservateur(observateur: IObservateur): void {
+    const index = this._observateurs.indexOf(observateur);
+    if (index !== -1) {
+      this._observateurs.splice(index, 1);
+    }
+  }
+
   public toString(): string {
     return this._temperature + "°C\n" + this._humidité + "%";
   }
