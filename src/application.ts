@@ -3,6 +3,7 @@ import * as rs from "readline-sync";
 import { StationMétéo } from "./station-meteo";
 import { AfficheurTexte } from "./afficheur-texte";
 import { AfficheurGraphique } from "./afficheur-graphique";
+import { AfficheurDifference } from "./afficheur-difference";
 
 function main(): void {
   const aff = new AfficheurTexte();
@@ -23,6 +24,7 @@ function main(): void {
 
     stationMeteo.humidité--;
     stationMeteo.temperature += 2;
+    stationMeteo.nbrIteration = p;
   }
 
   for (let p = 0; p < 10; p++) {
@@ -31,6 +33,7 @@ function main(): void {
 
     stationMeteo.humidité++;
     stationMeteo.temperature -= 3;
+    stationMeteo.nbrIteration = p;
   }
 }
 
